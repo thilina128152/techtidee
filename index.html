@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIHub — Discover AI Tools & Tech</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">AIHub</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="admin.html">Admin</a>
+            <button id="themeToggle">🌙</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Explore the Future of Technology</h1>
+        <p>Latest AI tools, creative innovations, and tech trends — all curated for you.</p>
+    </section>
+
+    <section class="ad-banner">Sponsored • Your Ad Could Be Here</section>
+
+    <main class="masonry" id="posts"></main>
+
+    <div id="postModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <img id="modalImg" />
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <footer>© <span id="year"></span> AIHub — All rights reserved.</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>

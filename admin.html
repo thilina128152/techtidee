@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — AIHub</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">AIHub Admin</div>
+        <nav>
+            <a href="index.html">Home</a>
+            <button id="themeToggleAdmin">🌙</button>
+        </nav>
+    </header>
+
+    <section class="admin-form">
+        <h2>Add / Edit Post</h2>
+        <form id="postForm">
+            <input type="hidden" id="editIndex" />
+            <label>Title</label>
+            <input type="text" id="title" required />
+            <label>Description</label>
+            <textarea id="content" rows="3" required></textarea>
+            <label>Image</label>
+            <input type="file" id="imageInput" accept="image/*" />
+            <button type="submit" class="btn-primary">Save</button>
+        </form>
+    </section>
+
+    <section class="admin-posts">
+        <h2>Manage Posts</h2>
+        <div id="admin-posts"></div>
+    </section>
+
+    <footer>© <span id="year"></span> AIHub Admin Panel</footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
