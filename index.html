@@ -1,63 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tools & Tech News</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools & Tech News</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header">
-        <h2>AI TECH HUB</h2>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Latest</a>
-            <a href="#">About</a>
-        </nav>
-        <button id="themeToggle">☀️</button>
-    </header>
+  <header class="header">
+    <h2>AI TECH HUB</h2>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Latest</a>
+      <a href="#">About</a>
+    </nav>
+    <button id="themeToggle">☀️</button>
+  </header>
 
-    <section class="hero">
-        <h1>Latest AI Tools & Tech Innovations</h1>
-        <p>Explore trending AI tools, gadgets, and the newest in technology.</p>
-    </section>
+  <section class="hero">
+    <h1>Latest AI Tools & Tech Innovations</h1>
+    <p>Explore trending AI tools, gadgets, and the newest in technology.</p>
+  </section>
 
-    <div class="ad-banner">Advertisement Space</div>
+  <div class="ad-banner">Advertisement Space</div>
 
-    <div class="side-ads">
-        <div class="ad">Ad 1</div>
-        <div class="ad">Ad 2</div>
+  <div class="side-ads">
+    <div class="ad">Ad 1</div>
+    <div class="ad">Ad 2</div>
+  </div>
+
+  <section class="posts-container">
+    <div class="post-card">
+      <div class="post-header">
+        <img class="profile" src="https://i.pravatar.cc/40" alt="Profile">
+        <div>
+          <h4>AI TECH HUB</h4>
+          <p class="timestamp">2 hrs ago</p>
+        </div>
+      </div>
+      <p class="post-text">
+        🚀 Discover the revolutionary AI tool of 2025 that's redefining automation and productivity!
+      </p>
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Post">
     </div>
 
-    <section class="posts-container">
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Post">
-            <div class="post-overlay">
-                <h3>Revolutionary AI Tool of 2025</h3>
-                <p>Discover how this new model is changing automation forever.</p>
-            </div>
+    <div class="post-card">
+      <div class="post-header">
+        <img class="profile" src="https://i.pravatar.cc/41" alt="Profile">
+        <div>
+          <h4>AI TECH HUB</h4>
+          <p class="timestamp">5 hrs ago</p>
         </div>
+      </div>
+      <p class="post-text">
+        💡 Quantum computing just reached new heights! Learn how this innovation can boost AI training speeds by 500%.
+      </p>
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800" alt="Tech Post">
+    </div>
+  </section>
 
-        <div class="post-card">
-            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800" alt="Tech Post">
-            <div class="post-overlay">
-                <h3>Quantum Computing Breakthrough</h3>
-                <p>A leap forward in processing speed and data efficiency.</p>
-            </div>
-        </div>
-    </section>
+  <footer>
+    © 2025 AI TECH HUB | All rights reserved.
+  </footer>
 
-    <footer>
-        © 2025 AI TECH HUB | All rights reserved.
-    </footer>
-
-    <script>
-        const themeToggle = document.getElementById("themeToggle");
-        themeToggle.onclick = () => {
-            document.body.classList.toggle("light-mode");
-            themeToggle.textContent = 
-                document.body.classList.contains("light-mode") ? "🌙" : "☀️";
-        };
-    </script>
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    themeToggle.onclick = () => {
+      document.body.classList.toggle("light-mode");
+      themeToggle.textContent =
+        document.body.classList.contains("light-mode") ? "🌙" : "☀️";
+    };
+  </script>
 </body>
 </html>
