@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Tools & Tech News</title>
+  <title>AI Tech Hub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,15 +19,8 @@
 
   <section class="hero">
     <h1>Latest AI Tools & Tech Innovations</h1>
-    <p>Explore trending AI tools, gadgets, and the newest in technology.</p>
+    <p>Stay updated with the newest AI breakthroughs and technology trends.</p>
   </section>
-
-  <div class="ad-banner">Advertisement Space</div>
-
-  <div class="side-ads">
-    <div class="ad">Ad 1</div>
-    <div class="ad">Ad 2</div>
-  </div>
 
   <section class="posts-container">
     <div class="post-card">
@@ -39,9 +32,9 @@
         </div>
       </div>
       <p class="post-text">
-        🚀 Discover the revolutionary AI tool of 2025 that's redefining automation and productivity!
+        🚀 Discover the 2025 AI tool that’s transforming how automation and creativity blend together.
       </p>
-      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Post">
+      <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=900" alt="AI Post" class="post-img">
     </div>
 
     <div class="post-card">
@@ -53,23 +46,43 @@
         </div>
       </div>
       <p class="post-text">
-        💡 Quantum computing just reached new heights! Learn how this innovation can boost AI training speeds by 500%.
+        💡 Quantum computing just reached new heights — see how it can accelerate AI training by 500%!
       </p>
-      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800" alt="Tech Post">
+      <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=900" alt="Tech Post" class="post-img">
     </div>
   </section>
 
-  <footer>
-    © 2025 AI TECH HUB | All rights reserved.
-  </footer>
+  <!-- Image Popup -->
+  <div id="imgModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modalImg">
+  </div>
+
+  <footer>© 2025 AI TECH HUB | All rights reserved.</footer>
 
   <script>
+    // Light/Dark Mode
     const themeToggle = document.getElementById("themeToggle");
     themeToggle.onclick = () => {
       document.body.classList.toggle("light-mode");
       themeToggle.textContent =
         document.body.classList.contains("light-mode") ? "🌙" : "☀️";
     };
+
+    // Image Popup
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const close = document.querySelector(".close");
+
+    document.querySelectorAll(".post-img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+      });
+    });
+
+    close.onclick = () => (modal.style.display = "none");
+    window.onclick = e => { if (e.target === modal) modal.style.display = "none"; };
   </script>
 </body>
 </html>
