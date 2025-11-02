@@ -1,215 +1,175 @@
-:root {
-    --bg: #111;
-    --bg2: #1a1a1a;
-    --bg3: #2a2a2a;
-    --text: #eee;
-    --accent: #00bfa5;
-}
-
-body.light-mode {
-    --bg: #f9f9f9;
-    --bg2: #fff;
-    --bg3: #eaeaea;
-    --text: #111;
-    --accent: #00796b;
-}
-
-/* Reset */
+/* General Reset */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background: var(--bg);
-    color: var(--text);
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: 0.3s ease;
+}
+
+/* Color Themes */
+:root {
+  --bg-color: #f5f7fa;
+  --text-color: #1a1a1a;
+  --card-bg: #ffffff;
+  --accent-color: #0078ff;
+  --ad-bg: #e9eef5;
+}
+
+body.dark {
+  --bg-color: #0e1116;
+  --text-color: #e4e6eb;
+  --card-bg: #1a1d24;
+  --accent-color: #2f81f7;
+  --ad-bg: #2a2e38;
 }
 
 /* Header */
-.header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: var(--bg2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--card-bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.header nav a {
-    margin: 0 1rem;
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
+header h1 {
+  font-size: 1.6rem;
+  color: var(--accent-color);
 }
 
-.header button {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: var(--text);
+.theme-toggle {
+  background: var(--accent-color);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Hero */
-.hero {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: linear-gradient(135deg, var(--accent), transparent);
-    width: 100%;
+.theme-toggle:hover {
+  opacity: 0.85;
 }
 
-.hero h1 {
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+/* Main Layout */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  flex-wrap: wrap;
 }
 
-.hero p {
-    font-size: 1rem;
-    opacity: 0.9;
+/* Post Container (Pinterest-style grid) */
+.posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  flex: 1;
 }
 
-/* Ad banner */
-.ad-banner {
-    text-align: center;
-    background: var(--bg3);
-    margin: 1rem auto;
-    padding: 1rem;
-    font-size: 0.9rem;
-    color: var(--accent);
-    border-radius: 0.5rem;
-    width: 90%;
+/* Post Card */
+.post {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
-/* Side ads */
-.side-ads {
-    position: fixed;
-    top: 120px;
-    right: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 10;
+.post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.side-ads .ad {
-    background: var(--bg2);
-    color: var(--accent);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    width: 150px;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-    transition: transform 0.3s;
+/* Image */
+.post img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: opacity 0.3s ease;
 }
 
-.side-ads .ad:hover {
-    transform: scale(1.05);
+/* Overlay (text appears on hover) */
+.post-content {
+  padding: 1rem;
+  transition: 0.3s;
 }
 
+.post .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  padding: 1rem;
+  text-align: center;
+}
+
+.post:hover .overlay {
+  opacity: 1;
+}
+
+/* Ad Section */
+aside.ads {
+  width: 280px;
+  background-color: var(--ad-bg);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  height: fit-content;
+}
+
+.ad {
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.ad:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.ad img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Responsive */
 @media (max-width: 900px) {
-    .side-ads {
-        display: none;
-    }
-}
-
-/* Posts Grid */
-.posts-container {
-    width: 90%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.2rem;
-    padding: 1.5rem 0;
-}
-
-.post-card {
-    position: relative;
-    background: var(--bg2);
-    border-radius: 1rem;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-}
-
-.post-card img {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+  aside.ads {
     width: 100%;
-    height: auto;
-    /* ✅ Full image visible */
-    display: block;
-    border-bottom: 1px solid var(--bg3);
-}
-
-/* Text overlay */
-.post-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent);
-    color: white;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.post-card:hover .post-overlay {
-    opacity: 1;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.modal-content {
-    background: var(--bg2);
-    color: var(--text);
-    margin: 5% auto;
-    padding: 1rem;
-    border-radius: 1rem;
-    max-width: 600px;
-    position: relative;
-}
-
-.modal-content img {
-    width: 100%;
-    border-radius: 0.5rem;
-}
-
-.close {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 1rem;
-    opacity: 0.7;
-    width: 100%;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+  }
 }
