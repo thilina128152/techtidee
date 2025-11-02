@@ -1,49 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AIHub — Discover AI Tools & Tech</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools & Tech News</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <header class="header">
-        <div class="logo">AIHub</div>
+        <h2>AI TECH HUB</h2>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="admin.html">Admin</a>
-            <button id="themeToggle">🌙</button>
+            <a href="#">Home</a>
+            <a href="#">Latest</a>
+            <a href="#">About</a>
         </nav>
+        <button id="themeToggle">☀️</button>
     </header>
 
     <section class="hero">
-        <h1>Explore the Future of Technology</h1>
-        <p>Latest AI tools, creative innovations, and tech trends — all curated for you.</p>
+        <h1>Latest AI Tools & Tech Innovations</h1>
+        <p>Explore trending AI tools, gadgets, and the newest in technology.</p>
     </section>
 
-    <aside class="side-ads">
-        <div class="ad">Sponsored Ad 1</div>
-        <div class="ad">Sponsored Ad 2</div>
-    </aside>
+    <div class="ad-banner">Advertisement Space</div>
 
-    <section class="ad-banner">Sponsored • Your Ad Could Be Here</section>
-
-    <main class="posts-container" id="posts"></main>
-
-    <div id="postModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <img id="modalImg" />
-            <h2 id="modalTitle"></h2>
-            <p id="modalText"></p>
-        </div>
+    <div class="side-ads">
+        <div class="ad">Ad 1</div>
+        <div class="ad">Ad 2</div>
     </div>
 
-    <footer>© <span id="year"></span> AIHub — All rights reserved.</footer>
+    <section class="posts-container">
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800" alt="AI Post">
+            <div class="post-overlay">
+                <h3>Revolutionary AI Tool of 2025</h3>
+                <p>Discover how this new model is changing automation forever.</p>
+            </div>
+        </div>
 
-    <script src="script.js"></script>
+        <div class="post-card">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800" alt="Tech Post">
+            <div class="post-overlay">
+                <h3>Quantum Computing Breakthrough</h3>
+                <p>A leap forward in processing speed and data efficiency.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 AI TECH HUB | All rights reserved.
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById("themeToggle");
+        themeToggle.onclick = () => {
+            document.body.classList.toggle("light-mode");
+            themeToggle.textContent = 
+                document.body.classList.contains("light-mode") ? "🌙" : "☀️";
+        };
+    </script>
 </body>
-
 </html>
