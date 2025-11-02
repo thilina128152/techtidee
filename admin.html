@@ -9,6 +9,17 @@
 </head>
 
 <body>
+    <script>
+        const pass = prompt("Enter admin password:");
+        if (pass !== "YourSecretPassword123") {
+            alert("Access denied!");
+            window.location.href = "/";
+        }
+
+    </script>
+
+
+    
     <header class="header">
         <div class="logo">AIHub Admin</div>
         <nav>
@@ -39,5 +50,6 @@
     <footer>© <span id="year"></span> AIHub Admin Panel</footer>
     <script src="script.js"></script>
 </body>
+
 
 </html>
