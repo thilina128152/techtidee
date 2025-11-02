@@ -1,279 +1,215 @@
-/* ========== RESET ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ========== THEME VARIABLES ========== */
 :root {
-  --bg: #f4f5f7;
-  --text: #1a1a1a;
-  --card: #ffffff;
-  --accent: #0078ff;
-  --ad-bg: #edf0f5;
-  --shadow: rgba(0, 0, 0, 0.1);
+    --bg: #111;
+    --bg2: #1a1a1a;
+    --bg3: #2a2a2a;
+    --text: #eee;
+    --accent: #00bfa5;
 }
 
-body.dark {
-  --bg: #0f1117;
-  --text: #e4e6eb;
-  --card: #1b1e27;
-  --accent: #3a82f7;
-  --ad-bg: #2a2e38;
-  --shadow: rgba(0, 0, 0, 0.3);
+body.light-mode {
+    --bg: #f9f9f9;
+    --bg2: #fff;
+    --bg3: #eaeaea;
+    --text: #111;
+    --accent: #00796b;
 }
 
-/* ========== BODY ========== */
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
-  font-family: "Poppins", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  transition: background 0.3s ease, color 0.3s ease;
-  min-height: 100vh;
-}
-
-/* ========== HEADER ========== */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background: var(--card);
-  box-shadow: 0 2px 6px var(--shadow);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-}
-
-h1 {
-  font-size: 1.7rem;
-  color: var(--accent);
-  letter-spacing: 0.5px;
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.theme-toggle,
-.admin-btn {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.theme-toggle:hover,
-.admin-btn:hover {
-  transform: translateY(-2px);
-  background: #005fd1;
-}
-
-/* ========== MAIN LAYOUT ========== */
-main {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
-  padding: 2rem;
-  flex-wrap: wrap;
-}
-
-/* ========== POSTS GRID ========== */
-.posts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  flex: 1;
-  max-width: 1000px;
-}
-
-/* ========== POST CARD ========== */
-.post {
-  background: var(--card);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px var(--shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  cursor: pointer;
-}
-
-.post img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.post:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 6px 14px var(--shadow);
-}
-
-/* HOVER OVERLAY */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  padding: 1rem;
-}
-
-.post:hover .overlay {
-  opacity: 1;
-}
-
-.overlay h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.4rem;
-}
-
-.overlay p {
-  font-size: 0.9rem;
-  max-width: 250px;
-  line-height: 1.4;
-}
-
-/* ========== ADS ========== */
-aside.ads {
-  width: 280px;
-  background: var(--ad-bg);
-  border-radius: 12px;
-  padding: 1rem;
-  box-shadow: 0 3px 8px var(--shadow);
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: sticky;
-  top: 90px;
-}
-
-.ad {
-  background: var(--card);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px var(--shadow);
-}
-
-.ad img {
-  width: 100%;
-  height: 300px;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.ad img:hover {
-  transform: scale(1.03);
-}
-
-/* ========== FOOTER ========== */
-footer {
-  text-align: center;
-  background: var(--card);
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: var(--text);
-  box-shadow: 0 -2px 6px var(--shadow);
-}
-
-/* ========== ADMIN PANEL ========== */
-.admin-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem;
-  max-width: 400px;
-  margin: auto;
-}
-
-.admin-panel h2 {
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-.admin-panel input,
-textarea {
-  display: block;
-  width: 100%;
-  padding: 0.7rem;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background: var(--card);
-  color: var(--text);
-  transition: 0.3s ease;
-}
-
-.admin-panel input:focus,
-textarea:focus {
-  border-color: var(--accent);
-  outline: none;
-}
-
-.admin-panel button {
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.admin-panel button:hover {
-  transform: translateY(-2px);
-  background: #005fd1;
-}
-
-.hidden {
-  display: none;
-}
-
-.error {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-/* ========== RESPONSIVE DESIGN ========== */
-@media (max-width: 950px) {
-  main {
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+    display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
 
-  aside.ads {
+/* Header */
+.header {
     width: 100%;
-    flex-direction: row;
-    overflow-x: auto;
-    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--bg2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.header button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, var(--accent), transparent);
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Ad banner */
+.ad-banner {
+    text-align: center;
+    background: var(--bg3);
+    margin: 1rem auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-radius: 0.5rem;
+    width: 90%;
+}
+
+/* Side ads */
+.side-ads {
+    position: fixed;
+    top: 120px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-  }
+    z-index: 10;
+}
 
-  .ad {
-    flex: 0 0 250px;
-  }
+.side-ads .ad {
+    background: var(--bg2);
+    color: var(--accent);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 150px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s;
+}
 
-  .posts {
+.side-ads .ad:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .side-ads {
+        display: none;
+    }
+}
+
+/* Posts Grid */
+.posts-container {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+    padding: 1.5rem 0;
+}
+
+.post-card {
+    position: relative;
+    background: var(--bg2);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.post-card img {
     width: 100%;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
+    height: auto;
+    /* ✅ Full image visible */
+    display: block;
+    border-bottom: 1px solid var(--bg3);
+}
+
+/* Text overlay */
+.post-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.post-card:hover .post-overlay {
+    opacity: 1;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background: var(--bg2);
+    color: var(--text);
+    margin: 5% auto;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 600px;
+    position: relative;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.7;
+    width: 100%;
 }
