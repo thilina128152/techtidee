@@ -1,121 +1,139 @@
-/* Keep original theme colors */
-body {
-  background-color: #0e0e0e;
-  color: #fff;
-  font-family: 'Inter', sans-serif;
-  margin: 0;
-  padding: 0;
+const $ = (s) => document.querySelector(s);
+
+// Theme toggle
+const themeBtn = $("#themeToggle") || $("#themeToggleAdmin");
+if (themeBtn) {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light") document.body.classList.add("light-mode");
+    updateThemeIcon();
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
+        updateThemeIcon();
+    });
+}
+function updateThemeIcon() {
+    const b = $("#themeToggle") || $("#themeToggleAdmin");
+    if (b) b.textContent = document.body.classList.contains("light-mode") ? "🌞" : "🌙";
 }
 
-/* Header and nav bar */
-header {
-  background: #111;
-  color: white;
-  padding: 20px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #222;
+// Local storage
+function getPosts() {
+    return JSON.parse(localStorage.getItem("posts") || "[]");
+}
+function savePosts(p) {
+    localStorage.setItem("posts", JSON.stringify(p));
 }
 
-/* Posts layout – grid like YouTube */
-.posts-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 25px;
-  padding: 40px;
+// Index page render
+const postsEl = $("#posts");
+if (postsEl) {
+    renderPosts();
+}
+function renderPosts() {
+    const posts = getPosts();
+    postsEl.innerHTML = "";
+    posts.forEach((p, i) => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        card.innerHTML = `
+      <img src="${p.image}" alt="${p.title}" />
+      <div class="post-overlay">
+        <h3>${p.title}</h3>
+        <p>${p.content.substring(0, 80)}...</p>
+      </div>`;
+        card.addEventListener("click", () => openModal(p));
+        postsEl.appendChild(card);
+    });
 }
 
-/* Individual post box */
-.post {
-  background: #181818;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+// Modal
+const modal = $("#postModal");
+if (modal) {
+    const modalImg = $("#modalImg"),
+        modalTitle = $("#modalTitle"),
+        modalText = $("#modalText"),
+        closeBtn = $(".close");
+    closeBtn.onclick = () => (modal.style.display = "none");
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    function openModal(p) {
+        modalImg.src = p.image;
+        modalTitle.textContent = p.title;
+        modalText.textContent = p.content;
+        modal.style.display = "block";
+    }
 }
 
-.post:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+// Admin logic
+const form = $("#postForm");
+if (form) {
+    const adminPosts = $("#admin-posts");
+    const editIndex = $("#editIndex");
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = $("#title").value.trim();
+        const content = $("#content").value.trim();
+        const file = $("#imageInput").files[0];
+        const posts = getPosts();
+        const idx = editIndex.value;
+
+        const saveData = (img) => {
+            const post = { title, content, image: img || "https://via.placeholder.com/400" };
+            if (idx) posts[idx] = post;
+            else posts.push(post);
+            savePosts(posts);
+            form.reset();
+            editIndex.value = "";
+            loadAdminPosts();
+            alert(idx ? "Post updated!" : "Post added!");
+        };
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => saveData(e.target.result);
+            reader.readAsDataURL(file);
+        } else {
+            saveData(posts[idx]?.image);
+        }
+    });
+
+    function loadAdminPosts() {
+        const posts = getPosts();
+        adminPosts.innerHTML = "";
+        posts.forEach((p, i) => {
+            const div = document.createElement("div");
+            div.className = "admin-post";
+            div.innerHTML = `
+        <strong>${p.title}</strong>
+        <div>
+          <button class="edit" data-i="${i}">Edit</button>
+          <button class="del" data-i="${i}">Del</button>
+        </div>`;
+            adminPosts.appendChild(div);
+        });
+        adminPosts.querySelectorAll(".edit").forEach((b) =>
+            b.addEventListener("click", (e) => {
+                const i = e.target.dataset.i;
+                const p = getPosts()[i];
+                $("#title").value = p.title;
+                $("#content").value = p.content;
+                editIndex.value = i;
+                window.scrollTo(0, 0);
+            })
+        );
+        adminPosts.querySelectorAll(".del").forEach((b) =>
+            b.addEventListener("click", (e) => {
+                const i = e.target.dataset.i;
+                const posts = getPosts();
+                posts.splice(i, 1);
+                savePosts(posts);
+                loadAdminPosts();
+            })
+        );
+    }
+    loadAdminPosts();
 }
 
-/* Image inside post (smaller but keeps full image visible) */
-.post img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid #222;
-  cursor: pointer;
-  transition: opacity 0.3s;
-}
-
-.post img:hover {
-  opacity: 0.9;
-}
-
-/* Post title and text */
-.post-content {
-  padding: 15px;
-}
-
-.post-content h2 {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.post-content p {
-  font-size: 14px;
-  color: #ccc;
-}
-
-/* Popup modal for full post */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: #1a1a1a;
-  border-radius: 12px;
-  padding: 20px;
-  max-width: 800px;
-  width: 90%;
-  max-height: 90%;
-  overflow-y: auto;
-}
-
-.modal-content img {
-  width: 100%;
-  border-radius: 10px;
-  margin-bottom: 15px;
-}
-
-.modal-content h2 {
-  margin-bottom: 10px;
-  font-size: 22px;
-}
-
-.modal-content p {
-  color: #ccc;
-  line-height: 1.6;
-}
-
-/* Close button */
-.close-btn {
-  position: absolute;
-  top: 30px;
-  right: 40px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-  z-index: 1001;
-}
+// Year
+$("#year").textContent = new Date().getFullYear();
