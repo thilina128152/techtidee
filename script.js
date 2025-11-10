@@ -31,29 +31,22 @@ if (postsEl) {
     renderPosts();
 }
 function renderPosts() {
-// Index page render
-const postsEl = $("#posts");
-if (postsEl) {
-    renderPosts();
-}
-function renderPosts() {
     const posts = getPosts();
     postsEl.innerHTML = "";
     posts.forEach((p, i) => {
         const card = document.createElement("div");
         card.className = "post-card";
         card.innerHTML = `
-        <div class="post-card-img-wrapper"> 
-            <img src="${p.image}" alt="${p.title}" />
-        </div>
-        <div class="post-overlay">
-          <h3>${p.title}</h3>
-          <p>${p.content.substring(0, 80)}...</p>
-        </div>`;
+      <div class="post-card-img-wrapper"> 
+          <img src="${p.image}" alt="${p.title}" />
+      </div>
+      <div class="post-overlay">
+        <h3>${p.title}</h3>
+        <p>${p.content.substring(0, 80)}...</p>
+      </div>`;
         card.addEventListener("click", () => openModal(p));
         postsEl.appendChild(card);
     });
-
 }
 
 // Modal
@@ -88,7 +81,8 @@ if (form) {
         const idx = editIndex.value;
 
         const saveData = (img) => {
-            const post = { title, content, image: img || "https://via.placeholder.com/400" };
+            // Using a better placeholder image for 16:9 ratio
+            const post = { title, content, image: img || "https://via.placeholder.com/640x360" }; 
             if (idx) posts[idx] = post;
             else posts.push(post);
             savePosts(posts);
@@ -146,5 +140,3 @@ if (form) {
 
 // Year
 $("#year").textContent = new Date().getFullYear();
-
-
