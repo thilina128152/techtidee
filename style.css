@@ -1,139 +1,249 @@
-const $ = (s) => document.querySelector(s);
-
-// Theme toggle
-const themeBtn = $("#themeToggle") || $("#themeToggleAdmin");
-if (themeBtn) {
-    const saved = localStorage.getItem("theme");
-    if (saved === "light") document.body.classList.add("light-mode");
-    updateThemeIcon();
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
-        localStorage.setItem("theme", document.body.classList.contains("light-mode") ? "light" : "dark");
-        updateThemeIcon();
-    });
-}
-function updateThemeIcon() {
-    const b = $("#themeToggle") || $("#themeToggleAdmin");
-    if (b) b.textContent = document.body.classList.contains("light-mode") ? "🌞" : "🌙";
+:root {
+    --bg: #111;
+    --bg2: #1a1a1a;
+    --bg3: #2a2a2a;
+    --text: #eee;
+    --accent: #00bfa5;
 }
 
-// Local storage
-function getPosts() {
-    return JSON.parse(localStorage.getItem("posts") || "[]");
-}
-function savePosts(p) {
-    localStorage.setItem("posts", JSON.stringify(p));
-}
-
-// Index page render
-const postsEl = $("#posts");
-if (postsEl) {
-    renderPosts();
-}
-function renderPosts() {
-    const posts = getPosts();
-    postsEl.innerHTML = "";
-    posts.forEach((p, i) => {
-        const card = document.createElement("div");
-        card.className = "post-card";
-        card.innerHTML = `
-      <img src="${p.image}" alt="${p.title}" />
-      <div class="post-overlay">
-        <h3>${p.title}</h3>
-        <p>${p.content.substring(0, 80)}...</p>
-      </div>`;
-        card.addEventListener("click", () => openModal(p));
-        postsEl.appendChild(card);
-    });
+body.light-mode {
+    --bg: #f9f9f9;
+    --bg2: #fff;
+    --bg3: #eaeaea;
+    --text: #111;
+    --accent: #00796b;
 }
 
-// Modal
-const modal = $("#postModal");
-if (modal) {
-    const modalImg = $("#modalImg"),
-        modalTitle = $("#modalTitle"),
-        modalText = $("#modalText"),
-        closeBtn = $(".close");
-    closeBtn.onclick = () => (modal.style.display = "none");
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
-    function openModal(p) {
-        modalImg.src = p.image;
-        modalTitle.textContent = p.title;
-        modalText.textContent = p.content;
-        modal.style.display = "block";
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: var(--bg2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+}
+
+.header button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+/* Hero - Updated for Banner Look */
+.hero {
+    text-align: center;
+    /* Use bg2 for the text banner background */
+    background: var(--bg2); 
+    width: 100%;
+    padding-top: 3rem; /* Padding for the text */
+    padding-bottom: 0;
+    overflow: hidden; 
+}
+
+.hero h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+/* Hero Image Container */
+.hero-image-container {
+    width: 100%;
+    /* Use the main bg color for the area below the text */
+    background: var(--bg); 
+    padding: 2rem 0; 
+    margin-top: -1rem; /* Adjust overlap */
+    position: relative;
+    z-index: 1; 
+}
+
+.hero-image-container img {
+    width: 100%; 
+    height: auto;
+    display: block;
+}
+
+/* Ad banner */
+.ad-banner {
+    text-align: center;
+    background: var(--bg3);
+    margin: 1rem auto;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: var(--accent);
+    border-radius: 0.5rem;
+    width: 90%;
+}
+
+/* Side ads */
+.side-ads {
+    position: fixed;
+    top: 120px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.side-ads .ad {
+    background: var(--bg2);
+    color: var(--accent);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 150px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s;
+}
+
+.side-ads .ad:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .side-ads {
+        display: none;
     }
 }
 
-// Admin logic
-const form = $("#postForm");
-if (form) {
-    const adminPosts = $("#admin-posts");
-    const editIndex = $("#editIndex");
-
-    form.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const title = $("#title").value.trim();
-        const content = $("#content").value.trim();
-        const file = $("#imageInput").files[0];
-        const posts = getPosts();
-        const idx = editIndex.value;
-
-        const saveData = (img) => {
-            const post = { title, content, image: img || "https://via.placeholder.com/400" };
-            if (idx) posts[idx] = post;
-            else posts.push(post);
-            savePosts(posts);
-            form.reset();
-            editIndex.value = "";
-            loadAdminPosts();
-            alert(idx ? "Post updated!" : "Post added!");
-        };
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => saveData(e.target.result);
-            reader.readAsDataURL(file);
-        } else {
-            saveData(posts[idx]?.image);
-        }
-    });
-
-    function loadAdminPosts() {
-        const posts = getPosts();
-        adminPosts.innerHTML = "";
-        posts.forEach((p, i) => {
-            const div = document.createElement("div");
-            div.className = "admin-post";
-            div.innerHTML = `
-        <strong>${p.title}</strong>
-        <div>
-          <button class="edit" data-i="${i}">Edit</button>
-          <button class="del" data-i="${i}">Del</button>
-        </div>`;
-            adminPosts.appendChild(div);
-        });
-        adminPosts.querySelectorAll(".edit").forEach((b) =>
-            b.addEventListener("click", (e) => {
-                const i = e.target.dataset.i;
-                const p = getPosts()[i];
-                $("#title").value = p.title;
-                $("#content").value = p.content;
-                editIndex.value = i;
-                window.scrollTo(0, 0);
-            })
-        );
-        adminPosts.querySelectorAll(".del").forEach((b) =>
-            b.addEventListener("click", (e) => {
-                const i = e.target.dataset.i;
-                const posts = getPosts();
-                posts.splice(i, 1);
-                savePosts(posts);
-                loadAdminPosts();
-            })
-        );
-    }
-    loadAdminPosts();
+/* Posts Grid */
+.posts-container {
+    width: 90%;
+    /* Ensures at least 3 columns horizontally */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 1.2rem;
+    padding: 1.5rem 0;
 }
 
-// Year
-$("#year").textContent = new Date().getFullYear();
+.post-card {
+    position: relative;
+    background: var(--bg2);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* New: Wrapper for image to enforce aspect ratio (16:9 like YouTube) */
+.post-card-img-wrapper {
+    padding-bottom: 56.25%; /* 9 / 16 = 0.5625 (16:9 aspect ratio) */
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--bg3);
+}
+
+.post-card img {
+    /* Position and size the image within the wrapper */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Key: Make sure the whole image fits inside the box */
+    object-fit: contain; 
+    background-color: #000; /* Dark background behind the image */
+    display: block;
+}
+
+/* Text overlay */
+.post-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.post-card:hover .post-overlay {
+    opacity: 1;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    background: var(--bg2);
+    color: var(--text);
+    margin: 5% auto;
+    padding: 1rem;
+    border-radius: 1rem;
+    max-width: 600px;
+    position: relative;
+}
+
+.modal-content img {
+    width: 100%;
+    border-radius: 0.5rem;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    opacity: 0.7;
+    width: 100%;
+}
