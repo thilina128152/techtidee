@@ -31,20 +31,29 @@ if (postsEl) {
     renderPosts();
 }
 function renderPosts() {
+// Index page render
+const postsEl = $("#posts");
+if (postsEl) {
+    renderPosts();
+}
+function renderPosts() {
     const posts = getPosts();
     postsEl.innerHTML = "";
     posts.forEach((p, i) => {
         const card = document.createElement("div");
         card.className = "post-card";
         card.innerHTML = `
-      <img src="${p.image}" alt="${p.title}" />
-      <div class="post-overlay">
-        <h3>${p.title}</h3>
-        <p>${p.content.substring(0, 80)}...</p>
-      </div>`;
+        <div class="post-card-img-wrapper"> 
+            <img src="${p.image}" alt="${p.title}" />
+        </div>
+        <div class="post-overlay">
+          <h3>${p.title}</h3>
+          <p>${p.content.substring(0, 80)}...</p>
+        </div>`;
         card.addEventListener("click", () => openModal(p));
         postsEl.appendChild(card);
     });
+}
 }
 
 // Modal
@@ -137,3 +146,4 @@ if (form) {
 
 // Year
 $("#year").textContent = new Date().getFullYear();
+
