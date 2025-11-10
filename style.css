@@ -63,10 +63,9 @@ body {
 /* Hero - Updated for Banner Look */
 .hero {
     text-align: center;
-    /* Use bg2 for the text banner background */
     background: var(--bg2); 
     width: 100%;
-    padding-top: 3rem; /* Padding for the text */
+    padding-top: 3rem; 
     padding-bottom: 0;
     overflow: hidden; 
 }
@@ -84,10 +83,9 @@ body {
 /* Hero Image Container */
 .hero-image-container {
     width: 100%;
-    /* Use the main bg color for the area below the text */
     background: var(--bg); 
     padding: 2rem 0; 
-    margin-top: -1rem; /* Adjust overlap */
+    margin-top: -1rem; 
     position: relative;
     z-index: 1; 
 }
@@ -146,7 +144,6 @@ body {
 /* Posts Grid */
 .posts-container {
     width: 90%;
-    /* Ensures at least 3 columns horizontally */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
     gap: 1.2rem;
     padding: 1.5rem 0;
@@ -166,44 +163,54 @@ body {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* New: Wrapper for image to enforce aspect ratio (16:9 like YouTube) */
+/* Wrapper for image to enforce 16:9 aspect ratio (like YouTube) */
 .post-card-img-wrapper {
-    padding-bottom: 56.25%; /* 9 / 16 = 0.5625 (16:9 aspect ratio) */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid var(--bg3);
 }
 
 .post-card img {
-    /* Position and size the image within the wrapper */
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
-    /* Key: Make sure the whole image fits inside the box */
-    object-fit: contain; 
-    background-color: #000; /* Dark background behind the image */
+    object-fit: contain; /* Ensures full picture is visible */
+    background-color: #000; 
     display: block;
 }
 
-/* Text overlay */
-.post-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.8), transparent);
-    color: white;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s;
+/* ✅ New: Styling for the permanent text info below the thumbnail */
+.post-info {
+    padding: 0.75rem 1rem;
 }
 
-.post-card:hover .post-overlay {
-    opacity: 1;
+.post-info h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    /* Limit title to 2 lines */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
 }
+
+.post-info p {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    /* Limit description to 1 line */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* OLD CODE REMOVED: (The old 'post-overlay' styles were removed here) */
+
 
 /* Modal */
 .modal {
