@@ -53,7 +53,7 @@ function renderPosts() {
         card.addEventListener("click", () => openModal(p));
         postsEl.appendChild(card);
     });
-}
+
 }
 
 // Modal
@@ -146,4 +146,5 @@ if (form) {
 
 // Year
 $("#year").textContent = new Date().getFullYear();
+
 
